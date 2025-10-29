@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Arch — Discord Bot</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:#0b0b0f;
+      --card:rgba(27,5,5,0.5);
+      --accent:#ff4d4d; 
+      --accent-2:#ff1a1a; 
+      --muted:#ff9999;
+      --glow:#ff1a1a;
+    }
+
+    *{box-sizing:border-box; margin:0; padding:0;}
+    body {
+      font-family:Inter,system-ui,Arial; 
+      background: linear-gradient(135deg,#0b0b0f,#330000);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      color:#ffeaea; 
+      overflow-x:hidden;
+      position: relative;
+    }
+
+    @keyframes gradientBG {
+      0%{background-position:0% 50%;}
+      50%{background-position:100% 50%;}
+      100%{background-position:0% 50%;}
+    }
+
+    #particles-cool {
+      position: fixed;
+      top:0; left:0;
+      width:100%;
+      height:100%;
+      z-index:0;
+      pointer-events:none;
+      background: transparent;
+    }
+
+    .hero{
+      padding: 100px 20px; 
+      text-align:center;
+      position: relative;
+      z-index:1;
+    }
+    .hero-inner{max-width:900px; margin:0 auto;}
+    .avatar{
+      width:140px; height:140px; border-radius:25px; overflow:hidden; 
+      margin:0 auto 20px; 
+      box-shadow:0 0 30px rgba(255,77,77,0.7); 
+      transition: transform 0.5s ease, box-shadow 0.5s ease;
+      animation: float 4s ease-in-out infinite;
+    }
+    .avatar img{width:100%; height:100%; object-fit:cover;}
+    .avatar:hover{
+      transform:scale(1.2) rotate(5deg);
+      box-shadow:0 0 60px var(--accent-2);
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px);}
+      50% { transform: translateY(-10px);}
+    }
+
+    h1{
+      font-size:48px; 
+      margin:12px 0; 
+      letter-spacing:1px;
+      background: linear-gradient(90deg,var(--accent),var(--accent-2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    p.lead{color:var(--muted); margin:6px 0 24px;}
+
+    .cta{display:inline-flex; gap:16px; margin-top:18px; flex-wrap:wrap;}
+    .btn{
+      background:transparent; 
+      border:1px solid rgba(255,255,255,0.2); 
+      padding:14px 24px; 
+      border-radius:999px; 
+      color:#fff; 
+      text-decoration:none; 
+      font-weight:600; 
+      transition:all 0.3s ease; 
+      backdrop-filter: blur(4px);
+    }
+    .btn.primary{
+      background:linear-gradient(90deg,var(--accent),var(--accent-2)); 
+      border:none; 
+      box-shadow:0 0 20px rgba(255,77,77,0.5);
+    }
+    .btn:hover{
+      transform:scale(1.1);
+      box-shadow:0 0 40px rgba(255,26,26,0.9);
+    }
+    .btn:active{transform:scale(0.95);}
+
+    .features-list {max-width:1200px; margin:60px auto; padding:0 20px; display:grid; gap:40px; position: relative; z-index:1;}
+    .features-list h2{color:var(--accent-2); text-align:center; margin-bottom:20px; font-size:32px;}
+
+    .feature-grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+      gap:20px;
+    }
+
+    .feature-card {
+      background: var(--card);
+      color:#fff;
+      padding:20px 15px;
+      border-radius:20px;
+      text-align:center;
+      font-weight:600;
+      box-shadow:0 6px 20px rgba(255,77,77,0.3);
+      backdrop-filter: blur(8px);
+      transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    }
+    .feature-card:hover {
+      transform:translateY(-10px) scale(1.05);
+      box-shadow:0 10px 40px rgba(255,26,26,0.7);
+      background: rgba(50,5,5,0.7);
+    }
+    .feature-card p{
+      font-weight:400; 
+      font-size:14px; 
+      color:var(--muted); 
+      margin-top:10px;
+    }
+
+    .developers{max-width:900px; margin:40px auto; text-align:center; padding:20px; position: relative; z-index:1;}
+    .developers h2{margin-bottom:10px; font-size:28px; color:var(--accent);}
+    .dev-list{display:flex; justify-content:center; gap:20px; flex-wrap:wrap;}
+    .dev-list a{
+      color:var(--accent-2); 
+      font-weight:600; 
+      text-decoration:none; 
+      transition:0.3s; 
+      padding:8px 16px;
+      border-radius:12px;
+      background: rgba(27,5,5,0.5);
+      backdrop-filter: blur(6px);
+      box-shadow:0 0 10px var(--accent-2);
+    }
+    .dev-list a:hover{
+      color:#fff; 
+      text-shadow:0 0 15px var(--accent-2); 
+      transform:scale(1.1);
+      box-shadow:0 0 25px var(--accent);
+    }
+
+    footer{
+      max-width:1100px; margin:40px auto; padding:20px; color:var(--muted); text-align:center; position: relative; z-index:1;
+    }
+
+    @media (max-width:880px){
+      h1{font-size:38px;}
+      .feature-grid{grid-template-columns:repeat(auto-fit,minmax(160px,1fr));}
+    }
+  </style>
+</head>
+<body>
+  <canvas id="particles-cool"></canvas>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="avatar"><img src="arch.png" alt="Arch Bot Avatar"></div>
+      <h1>Arch — Moderation, Security & AI</h1>
+      <p class="lead">A complete Discord bot for Moderation, Security, Utility, and AI interaction.</p>
+
+      <div class="cta">
+        <a class="btn primary" href="https://discord.com/oauth2/authorize?client_id=YOUR_CLIENT_ID&permissions=8&scope=bot">Invite Bot</a>
+        <a class="btn" href="https://discord.gg/YOUR_SERVER">Discord Server</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="features-list">
+    <h2>⚙️ Core Features</h2>
+    <div class="feature-grid">
+      <div class="feature-card">🛡 Security<p>Advanced anti-raid and spam protection.</p></div>
+      <div class="feature-card">🤖 Automod<p>Detect and manage bad words, spam, and more.</p></div>
+      <div class="feature-card">🛠 Utility<p>Useful tools to simplify server management.</p></div>
+      <div class="feature-card">🎵 Music<p>Play songs from YouTube, Spotify, and SoundCloud.</p></div>
+      <div class="feature-card">🎁 Giveaway<p>Host engaging giveaways with timers and prizes.</p></div>
+      <div class="feature-card">🎫 Ticket System<p>Handle user support tickets with ease.</p></div>
+      <div class="feature-card">💬 AI Chat<p>Use AI commands for fun and creativity.</p></div>
+      <div class="feature-card">📜 Logging<p>Track joins, leaves, and message edits/deletes.</p></div>
+    </div>
+  </section>
+
+  <section class="developers">
+    <h2>Developers</h2>
+    <div class="dev-list">
+      <a href="https://discord.com/users/1423139998349267025" target="_blank">Aarav</a>
+      <a href="https://discord.com/users/1402267752294518927" target="_blank">Phantom</a>
+    </div>
+  </section>
+
+  <footer>
+    © 2025 Arch Bot. All rights reserved.
+  </footer>
+
+  <script>
+    const canvas = document.getElementById('particles-cool');
+    const ctx = canvas.getContext('2d');
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
+
+    window.addEventListener('resize', ()=>{width=canvas.width=window.innerWidth;height=canvas.height=window.innerHeight;});
+
+    class Particle {
+      constructor(){
+        this.x = Math.random()*width;
+        this.y = Math.random()*height;
+        this.size = Math.random()*3+1;
+        this.speedX = (Math.random()-0.5)*0.5;
+        this.speedY = (Math.random()-0.5)*0.5;
+        this.color = `rgba(255,77,77,${Math.random()*0.6+0.2})`;
+      }
+      update(){
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if(this.x<0)this.x=width;
+        if(this.x>width)this.x=0;
+        if(this.y<0)this.y=height;
+        if(this.y>height)this.y=0;
+      }
+      draw(){
+        ctx.beginPath();
+        ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
+        ctx.fillStyle=this.color;
+        ctx.fill();
+      }
+    }
+
+    const particles = [];
+    for(let i=0;i<120;i++) particles.push(new Particle());
+
+    function animate(){
+      ctx.clearRect(0,0,width,height);
+      particles.forEach(p=>{
+        p.update();
+        p.draw();
+      });
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+  </script>
+</body>
+</html>
